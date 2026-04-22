@@ -2,11 +2,10 @@ from rest_framework import serializers
 from .models import Movie
 
 
-class MovieSerializer(serializers.Serializer):
-    id = serializers.IntegerField(read_only=True)
-    title = serializers.CharField(required=True)
-    description = serializers.CharField()
-    duration = serializers.IntegerField(required=True)
+class MovieSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Movie
+        fields = "__all__"
 
     def create(self, validated_data):
         return Movie.objects.create(**validated_data)
